@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cardToUnicode, newDeck } from './cards';
+import { cardToUnicode, newDeck, eligibleSums } from './cards';
 
 function Card(props) {
   return (
@@ -20,10 +20,16 @@ class Game extends React.Component {
   }
 
   render() {
-    const playerCards = this.state.deck.slice(0, 2);
+    const playerCards = this.state.deck.slice(0, 4);
+    const sums = eligibleSums(...playerCards);
+
+    const sumsBlock = 'good' in sums
+      ? <div>{sums.good.join('/')}</div>
+      : <div>You lose! {sums.leastbad}</div>;
 
     return (
       <div className="Board">
+        {sumsBlock}
         {playerCards.map(card => (
           <Card
             key={cardToUnicode(card.rank, card.suit)}
