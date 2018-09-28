@@ -15,10 +15,10 @@ export function cardToUnicode(rank, suit) {
   return String.fromCodePoint(SUIT_UNICODE_BASE[suit] + parseInt(rank, 10));
 }
 
-function makeCard(suit, rank) {
+function makeCard(rank, suit) {
   return {
-    suit,
     rank,
+    suit,
   };
 }
 
@@ -26,6 +26,6 @@ export function newDeck() {
   return compose(
     shuffle,
     flatten,
-    map(suit => RANKS.map(rank => makeCard(suit, rank))),
+    map(suit => RANKS.map(rank => makeCard(rank, suit))),
   )(Object.keys(SUIT_UNICODE_BASE));
 }

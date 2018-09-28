@@ -27,8 +27,8 @@ class Game extends React.Component {
         {playerCards.map(card => (
           <Card
             key={cardToUnicode(card.rank, card.suit)}
-            suit={card.suit}
             rank={card.rank}
+            suit={card.suit}
           />
         ))}
       </div>
