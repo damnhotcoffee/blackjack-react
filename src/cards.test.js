@@ -1,4 +1,6 @@
-import { cardToUnicode, newDeck, possibleSums } from './cards';
+import {
+  cardToUnicode, newDeck, possibleSums, eligibleSums,
+} from './cards';
 
 test('cardToUnicode works with Jack of Hearts', () => {
   expect(cardToUnicode(11, 'h')).toBe('🂻');
@@ -47,4 +49,50 @@ test('possibleSums works for aces', () => {
     { rank: 1, suit: 'c' },
     { rank: 1, suit: 'h' },
   )).toEqual([7, 17, 27]);
+});
+
+test('eligibleSums works: good cases', () => {
+  expect(eligibleSums()).toEqual({ good: [0] });
+  expect(eligibleSums(
+    { rank: 5, suit: 'c' },
+  )).toEqual({ good: [5] });
+  expect(eligibleSums(
+    { rank: 1, suit: 'h' },
+    { rank: 1, suit: 'c' },
+  )).toEqual({ good: [2, 12] });
+  expect(eligibleSums(
+    { rank: 5, suit: 'h' },
+    { rank: 1, suit: 'c' },
+    { rank: 1, suit: 'h' },
+  )).toEqual({ good: [7, 17] });
+  expect(eligibleSums(
+    { rank: 5, suit: 'h' },
+    { rank: 1, suit: 'c' },
+    { rank: 7, suit: 'c' },
+  )).toEqual({ good: [13] });
+  expect(eligibleSums(
+    { rank: 11, suit: 'h' },
+    { rank: 11, suit: 'c' },
+    { rank: 1, suit: 'c' },
+  )).toEqual({ good: [21] });
+});
+
+test('eligibleSums works: bad cases', () => {
+  expect(eligibleSums(
+    { rank: 7, suit: 'h' },
+    { rank: 10, suit: 'c' },
+    { rank: 5, suit: 'c' },
+  )).toEqual({ leastbad: 22 });
+  expect(eligibleSums(
+    { rank: 3, suit: 'h' },
+    { rank: 13, suit: 'c' },
+    { rank: 1, suit: 'c' },
+    { rank: 14, suit: 'c' },
+  )).toEqual({ leastbad: 24 });
+  expect(eligibleSums(
+    { rank: 2, suit: 'h' },
+    { rank: 14, suit: 's' },
+    { rank: 1, suit: 'c' },
+    { rank: 9, suit: 'c' },
+  )).toEqual({ leastbad: 22 });
 });

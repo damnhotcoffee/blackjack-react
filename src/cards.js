@@ -4,6 +4,8 @@ import flatten from 'lodash/fp/flatten';
 import shuffle from 'lodash/fp/shuffle';
 import reduce from 'lodash/fp/reduce';
 import sortedUniq from 'lodash/fp/sortedUniq';
+import reject from 'lodash/fp/reject';
+import min from 'lodash/fp/min';
 import clamp from 'lodash/clamp';
 
 const SUIT_UNICODE_BASE = {
@@ -45,4 +47,17 @@ export function possibleSums(...cards) {
     }
     return map(x => x + v)(sums);
   }, [0], cards);
+}
+
+export function eligibleSums(...cards) {
+  const s = possibleSums(...cards);
+  const good = reject(x => x > 21, s);
+  if (good.length > 0) {
+    return {
+      good,
+    };
+  }
+  return {
+    leastbad: min(s),
+  };
 }
