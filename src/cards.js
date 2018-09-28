@@ -35,7 +35,7 @@ export function newDeck() {
   )(Object.keys(SUIT_UNICODE_BASE));
 }
 
-export function possibleSums(...cards) {
+export function possibleSums(cards) {
   return reduce((sums, card) => {
     const v = clamp(card.rank, 10);
     if (v === 1) {
@@ -49,8 +49,8 @@ export function possibleSums(...cards) {
   }, [0], cards);
 }
 
-export function eligibleSums(...cards) {
-  const s = possibleSums(...cards);
+export function eligibleSums(cards) {
+  const s = possibleSums(cards);
   const good = reject(x => x > 21, s);
   if (good.length > 0) {
     return {

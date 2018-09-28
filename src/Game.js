@@ -21,7 +21,7 @@ class Game extends React.Component {
 
   render() {
     const playerCards = this.state.deck.slice(0, 4);
-    const sums = eligibleSums(...playerCards);
+    const sums = eligibleSums(playerCards);
 
     const sumsBlock = 'good' in sums
       ? <div>{sums.good.join('/')}</div>
