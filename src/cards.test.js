@@ -13,12 +13,16 @@ test('newDeck has 52 cards', () => {
 });
 
 test('possibleSums works for non-aces', () => {
-  expect(possibleSums({ rank: 2, suit: 'h' })).toEqual([2]);
+  expect(possibleSums(
+    { rank: 2, suit: 'h' },
+  )).toEqual([2]);
   expect(possibleSums(
     { rank: 2, suit: 'h' },
     { rank: 5, suit: 'h' },
   )).toEqual([7]);
-  expect(possibleSums({ rank: 14, suit: 'h' })).toEqual([10]);
+  expect(possibleSums(
+    { rank: 14, suit: 'h' },
+  )).toEqual([10]);
   expect(possibleSums(
     { rank: 14, suit: 'h' },
     { rank: 10, suit: 'c' },
@@ -26,7 +30,9 @@ test('possibleSums works for non-aces', () => {
 });
 
 test('possibleSums works for aces', () => {
-  expect(possibleSums({ rank: 1, suit: 'h' })).toEqual([1, 11]);
+  expect(possibleSums(
+    { rank: 1, suit: 'h' },
+  )).toEqual([1, 11]);
   expect(possibleSums(
     { rank: 1, suit: 'h' },
     { rank: 1, suit: 'c' },
