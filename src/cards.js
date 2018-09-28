@@ -2,6 +2,9 @@ import compose from 'lodash/fp/compose';
 import map from 'lodash/fp/map';
 import flatten from 'lodash/fp/flatten';
 import shuffle from 'lodash/fp/shuffle';
+import reduce from 'lodash/fp/reduce';
+import sortedUniq from 'lodash/fp/sortedUniq';
+import clamp from 'lodash/clamp';
 
 const SUIT_UNICODE_BASE = {
   s: 0x1F0A0,
@@ -28,4 +31,18 @@ export function newDeck() {
     flatten,
     map(suit => RANKS.map(rank => makeCard(rank, suit))),
   )(Object.keys(SUIT_UNICODE_BASE));
+}
+
+export function possibleSums(...cards) {
+  return reduce((sums, card) => {
+    const v = clamp(card.rank, 10);
+    if (v === 1) {
+      return compose(
+        sortedUniq,
+        flatten,
+        map(x => [x + 1, x + 11]),
+      )(sums);
+    }
+    return map(x => x + v)(sums);
+  }, [0], cards);
 }
