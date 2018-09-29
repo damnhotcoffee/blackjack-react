@@ -5,8 +5,7 @@ import { cardToUnicode, newDeck, eligibleSums } from './cards';
 
 function Card(props) {
   return (
-    <div className="card">
-      {props.rank}{props.suit}
+    <div className={`card card-${props.suit}`}>
       {cardToUnicode(props.rank, props.suit)}
     </div>
   );
@@ -31,13 +30,15 @@ class Game extends React.Component {
     return (
       <div className="board">
         {sumsBlock}
-        {playerCards.map(card => (
-          <Card
-            key={cardToUnicode(card.rank, card.suit)}
-            rank={card.rank}
-            suit={card.suit}
-          />
-        ))}
+        <div className="card-holder">
+          {playerCards.map(card => (
+            <Card
+              key={cardToUnicode(card.rank, card.suit)}
+              rank={card.rank}
+              suit={card.suit}
+            />
+          ))}
+        </div>
       </div>
     );
   }

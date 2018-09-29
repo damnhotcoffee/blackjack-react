@@ -1,8 +1,27 @@
 .board {
   border-radius: 25px;
-  border: 2px solid #73AD21;
+  border: 2px solid #E9BA49;
   padding: 20px; 
   width: 450px;
   height: 400px;
   margin: -200px 0 0 -225px;
+}
+.card-holder {
+  display: flex;
+  justify-content: center;
+}
+.card {
+  font-size: 40px;
+}
+.card-h {
+  color: #D24949;
+}
+.card-c {
+  color: #4ABE21;
+}
+.card-s {
+  color: #1A1A1A;
+}
+.card-d {
+  color: #0067AD;
 }
