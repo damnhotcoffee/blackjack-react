@@ -29,7 +29,7 @@ class Game extends React.Component {
       : <div>You lose! {sums.leastbad}</div>;
 
     return (
-      <div className="Board">
+      <div className="board">
         {sumsBlock}
         {playerCards.map(card => (
           <Card
