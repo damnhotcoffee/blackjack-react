@@ -24,12 +24,12 @@ class Game extends React.Component {
     const sums = eligibleSums(playerCards);
 
     const sumsBlock = 'good' in sums
-      ? <div>{sums.good.join('/')}</div>
-      : <div>You lose! {sums.leastbad}</div>;
+      ? sums.good.join('/')
+      : `You lose! ${sums.leastbad}`;
 
     return (
       <div className="board">
-        {sumsBlock}
+        <div className="sums-block">{sumsBlock}</div>
         <div className="card-holder">
           {playerCards.map(card => (
             <Card
