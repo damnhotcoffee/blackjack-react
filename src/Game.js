@@ -27,6 +27,8 @@ class Game extends React.Component {
       ? sums.good.join('/')
       : `You lose! ${sums.leastbad}`;
 
+    const buttons = ['Hit', 'Stand'];
+
     return (
       <div className="board">
         <div className="sums-block">{sumsBlock}</div>
@@ -37,6 +39,16 @@ class Game extends React.Component {
               rank={card.rank}
               suit={card.suit}
             />
+          ))}
+        </div>
+        <div className="button-holder">
+          {buttons.map(name => (
+            <button
+              type="button"
+              key={name}
+            >
+              {name}
+            </button>
           ))}
         </div>
       </div>

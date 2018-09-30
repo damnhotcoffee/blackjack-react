@@ -14,18 +14,32 @@
   font-size: 40px;
 }
 .card-h {
-  color: #D24949;
+  color: #E8674A;
 }
 .card-c {
-  color: #4ABE21;
+  color: #5AA91C;
 }
 .card-s {
-  color: #1A1A1A;
+  color: #6A7472;
 }
 .card-d {
-  color: #0067AD;
+  color: #369CE1;
 }
 .sums-block {
   text-align: center;
   font-size: 20px;
+}
+.button-holder {
+  display: flex;
+  justify-content: center;
+}
+.button-holder button {
+  background-color: #DCF09C;
+  border: 1px solid #7B5A5A;
+  padding: 10px;
+  margin: 5px;
+  width: 100px;
+  border-radius: 3px;
+  font-family: Arial;
+  font-size: 15px;
 }
