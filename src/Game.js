@@ -19,6 +19,12 @@ class Game extends React.Component {
     };
   }
 
+  dealCard() {
+    this.setState({
+      // playerCards should be in state
+    });
+  }
+
   render() {
     const playerCards = this.state.deck.slice(0, 4);
     const sums = eligibleSums(playerCards);
@@ -46,6 +52,7 @@ class Game extends React.Component {
             <button
               type="button"
               key={name}
+              onClick={this.dealCard}
             >
               {name}
             </button>

@@ -1,6 +1,6 @@
 .board {
   border-radius: 25px;
-  border: 2px solid #E9BA49;
+  border: 1px solid #722EF2;
   padding: 20px; 
   width: 450px;
   height: 400px;
@@ -11,10 +11,10 @@
   justify-content: center;
 }
 .card {
-  font-size: 40px;
+  font-size: 36px;
 }
 .card-h {
-  color: #E8674A;
+  color: #DA6FF1;
 }
 .card-c {
   color: #5AA91C;
@@ -34,12 +34,21 @@
   justify-content: center;
 }
 .button-holder button {
-  background-color: #DCF09C;
+  background-color: #EADFFF;
   border: 1px solid #7B5A5A;
   padding: 10px;
   margin: 5px;
   width: 100px;
   border-radius: 3px;
-  font-family: Arial;
-  font-size: 15px;
+  color: #581A65;
+  font-size: 12px;
+  font-family: Georgia;
+}
+.button-holder button:hover {
+  background-color: #C7B4EB;
+}
+
+.button-holder button:active {
+  background-color: #420659;
+  color: #F0F0FF;
 }
