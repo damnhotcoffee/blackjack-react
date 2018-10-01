@@ -5,6 +5,9 @@
   width: 450px;
   height: 400px;
   margin: -200px 0 0 -225px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 .card-holder {
   display: flex;
