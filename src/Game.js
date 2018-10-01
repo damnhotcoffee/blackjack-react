@@ -14,20 +14,25 @@ function Card(props) {
 class Game extends React.Component {
   constructor(props) {
     super(props);
+    const deck = newDeck();
+    const playerCards = [deck.pop()];
     this.state = {
-      deck: newDeck(),
+      deck,
+      playerCards,
     };
   }
 
   dealCard() {
+    const { deck, playerCards } = this.state;
+    playerCards.push(deck.pop());
     this.setState({
-      // playerCards should be in state
+      deck,
+      playerCards,
     });
   }
 
   render() {
-    const playerCards = this.state.deck.slice(0, 4);
-    const sums = eligibleSums(playerCards);
+    const sums = eligibleSums(this.state.playerCards);
 
     const sumsBlock = 'good' in sums
       ? sums.good.join('/')
@@ -39,7 +44,7 @@ class Game extends React.Component {
       <div className="board">
         <div className="sums-block">{sumsBlock}</div>
         <div className="card-holder">
-          {playerCards.map(card => (
+          {this.state.playerCards.map(card => (
             <Card
               key={cardToUnicode(card.rank, card.suit)}
               rank={card.rank}
@@ -52,7 +57,7 @@ class Game extends React.Component {
             <button
               type="button"
               key={name}
-              onClick={this.dealCard}
+              onClick={() => this.dealCard()}
             >
               {name}
             </button>
