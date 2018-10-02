@@ -3,6 +3,22 @@ import './Game.css';
 
 import { cardToUnicode, newDeck, eligibleSums } from './cards';
 
+const DEALER_MESSAGES = {
+  preGame: 'Welcome to the table!',
+  playerTurn: "Player's turn.",
+  dealerTurn: 'Dealing...',
+  playerWon: 'You win!',
+  dealerWon: 'You lose!',
+};
+
+function DealerMessage(props) {
+  return (
+    <div className="dealer-message">
+      {DEALER_MESSAGES[props.state]}
+    </div>
+  );
+}
+
 function Card(props) {
   return (
     <div className={`card card-${props.suit}`}>
@@ -42,10 +58,12 @@ function SumsBlock(props) {
 class Game extends React.Component {
   constructor(props) {
     super(props);
+    const gameState = 'preGame';
     const deck = newDeck();
     const playerCards = [deck.pop()];
     const dealerCards = [deck.pop()];
     this.state = {
+      gameState,
       deck,
       playerCards,
       dealerCards,
@@ -67,9 +85,7 @@ class Game extends React.Component {
     return (
       <div className="board">
         <div className="dealer-block">
-          <div className="dealer-message">
-            Welcome to the table!
-          </div>
+          <DealerMessage state={this.state.gameState} />
           <div className="card-block">
             <SumsBlock cards={this.state.dealerCards} />
             <CardHolder cards={this.state.dealerCards} />
