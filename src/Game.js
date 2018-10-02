@@ -1,4 +1,5 @@
 import React from 'react';
+import isEmpty from 'lodash/isEmpty';
 import './Game.css';
 
 import { cardToUnicode, newDeck, eligibleSums } from './cards';
@@ -42,6 +43,10 @@ function CardHolder(props) {
 }
 
 function SumsBlock(props) {
+  if (isEmpty(props.cards)) {
+    return null;
+  }
+
   const sums = eligibleSums(props.cards);
 
   const sumsBlock = 'good' in sums
