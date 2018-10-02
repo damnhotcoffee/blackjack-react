@@ -11,14 +11,30 @@ function Card(props) {
   );
 }
 
+function CardHolder(props) {
+  return (
+    <div className="card-holder">
+      {props.cards.map(card => (
+        <Card
+          key={cardToUnicode(card.rank, card.suit)}
+          rank={card.rank}
+          suit={card.suit}
+        />
+      ))}
+    </div>
+  );
+}
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
     const deck = newDeck();
     const playerCards = [deck.pop()];
+    const dealerCards = [deck.pop()];
     this.state = {
       deck,
       playerCards,
+      dealerCards,
     };
   }
 
@@ -42,15 +58,12 @@ class Game extends React.Component {
 
     return (
       <div className="board">
-        <div className="sums-block">{sumsBlock}</div>
-        <div className="card-holder">
-          {this.state.playerCards.map(card => (
-            <Card
-              key={cardToUnicode(card.rank, card.suit)}
-              rank={card.rank}
-              suit={card.suit}
-            />
-          ))}
+        <div className="dealer-block">
+          <CardHolder cards={this.state.dealerCards} />
+        </div>
+        <div className="player-block">
+          <div className="sums-block">{sumsBlock}</div>
+          <CardHolder cards={this.state.playerCards} />
         </div>
         <div className="button-holder">
           {buttons.map(name => (
