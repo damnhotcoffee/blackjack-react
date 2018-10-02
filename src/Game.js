@@ -66,9 +66,14 @@ class Game extends React.Component {
 
     return (
       <div className="board">
-        <div className="card-block">
-          <SumsBlock cards={this.state.dealerCards} />
-          <CardHolder cards={this.state.dealerCards} />
+        <div className="dealer-block">
+          <div className="dealer-message">
+            Welcome to the table!
+          </div>
+          <div className="card-block">
+            <SumsBlock cards={this.state.dealerCards} />
+            <CardHolder cards={this.state.dealerCards} />
+          </div>
         </div>
         <div className="player-block">
           <div className="card-block">

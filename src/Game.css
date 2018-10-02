@@ -7,7 +7,7 @@
   margin: -200px 0 0 -225px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .card-holder {
@@ -86,4 +86,20 @@
 
 .player-block .button-holder {
   margin-top: 10px;
+}
+
+.dealer-block {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.dealer-message {
+  border: 1px solid #DDD;
+  border-radius: 7px;
+  padding: 12px;
+  font-family: Georgia;
+  font-size: 14px;
+  color: #6A6A6A;
+  margin-bottom: 15px;
 }
