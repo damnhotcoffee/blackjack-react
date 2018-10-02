@@ -35,9 +35,27 @@
   color: #369CE1;
 }
 
+.card-block {
+  display: flex;
+  justify-content: center;
+}
+
 .sums-block {
   text-align: center;
-  font-size: 20px;
+  height: 40%;
+  font-size: 14px;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 1px;
+  margin-right: 4px;
+}
+
+.color-good {
+  color: #C5DAB8;
+}
+
+.color-bad {
+  color: #D3392C;
 }
 
 .button-holder {
@@ -64,4 +82,8 @@
 .button-holder button:active {
   background-color: #420659;
   color: #F0F0FF;
+}
+
+.player-block .button-holder {
+  margin-top: 10px;
 }

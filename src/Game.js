@@ -66,24 +66,26 @@ class Game extends React.Component {
 
     return (
       <div className="board">
-        <div className="dealer-block">
+        <div className="card-block">
           <SumsBlock cards={this.state.dealerCards} />
           <CardHolder cards={this.state.dealerCards} />
         </div>
         <div className="player-block">
-          <SumsBlock cards={this.state.playerCards} />
-          <CardHolder cards={this.state.playerCards} />
-        </div>
-        <div className="button-holder">
-          {buttons.map(name => (
-            <button
-              type="button"
-              key={name}
-              onClick={() => this.dealCard()}
-            >
-              {name}
-            </button>
-          ))}
+          <div className="card-block">
+            <SumsBlock cards={this.state.playerCards} />
+            <CardHolder cards={this.state.playerCards} />
+          </div>
+          <div className="button-holder">
+            {buttons.map(name => (
+              <button
+                type="button"
+                key={name}
+                onClick={() => this.dealCard()}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     );
