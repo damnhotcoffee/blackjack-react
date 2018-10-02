@@ -84,6 +84,10 @@
   color: #F0F0FF;
 }
 
+.player-block {
+  margin-bottom: 20px;
+}
+
 .player-block .button-holder {
   margin-top: 10px;
 }
