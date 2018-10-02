@@ -55,18 +55,44 @@ function SumsBlock(props) {
   );
 }
 
+function PlayerButton(props) {
+  return (
+    <button
+      type="button"
+      key={props.name}
+      onClick={props.onClick}
+    >
+      {props.name}
+    </button>
+  );
+}
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
+
     const gameState = 'preGame';
-    const deck = newDeck();
-    const playerCards = [deck.pop()];
-    const dealerCards = [deck.pop()];
+    const deck = [];
+    const playerCards = [];
+    const dealerCards = [];
     this.state = {
       gameState,
       deck,
       playerCards,
       dealerCards,
+    };
+
+    this.clickDeal = this.clickDeal.bind(this);
+    this.clickHit = this.clickHit.bind(this);
+    this.clickStand = this.clickStand.bind(this);
+    this.playerButtons = {
+      preGame: [
+        <PlayerButton key="Deal" name="Deal" onClick={this.clickDeal} />,
+      ],
+      playerTurn: [
+        <PlayerButton key="Hit" name="Hit" onClick={this.clickHit} />,
+        <PlayerButton key="Stand" name="Stand" onClick={this.clickStand} />,
+      ],
     };
   }
 
@@ -79,9 +105,28 @@ class Game extends React.Component {
     });
   }
 
-  render() {
-    const buttons = ['Hit', 'Stand'];
+  clickDeal() {
+    const gameState = 'playerTurn';
+    const deck = newDeck();
+    const playerCards = [deck.pop()];
+    const dealerCards = [deck.pop()];
+    this.setState({
+      gameState,
+      deck,
+      playerCards,
+      dealerCards,
+    });
+  }
 
+  clickHit() {
+    this.dealCard();
+  }
+
+  clickStand() {
+    this.dealCard();
+  }
+
+  render() {
     return (
       <div className="board">
         <div className="dealer-block">
@@ -97,15 +142,7 @@ class Game extends React.Component {
             <CardHolder cards={this.state.playerCards} />
           </div>
           <div className="button-holder">
-            {buttons.map(name => (
-              <button
-                type="button"
-                key={name}
-                onClick={() => this.dealCard()}
-              >
-                {name}
-              </button>
-            ))}
+            {this.playerButtons[this.state.gameState]}
           </div>
         </div>
       </div>
