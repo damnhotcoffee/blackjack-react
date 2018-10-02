@@ -25,6 +25,20 @@ function CardHolder(props) {
   );
 }
 
+function SumsBlock(props) {
+  const sums = eligibleSums(props.cards);
+
+  const sumsBlock = 'good' in sums
+    ? sums.good.join('/')
+    : sums.leastbad;
+
+  const sumColor = 'good' in sums ? 'good' : 'bad';
+
+  return (
+    <div className={`sums-block color-${sumColor}`}>{sumsBlock}</div>
+  );
+}
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -48,21 +62,16 @@ class Game extends React.Component {
   }
 
   render() {
-    const sums = eligibleSums(this.state.playerCards);
-
-    const sumsBlock = 'good' in sums
-      ? sums.good.join('/')
-      : `You lose! ${sums.leastbad}`;
-
     const buttons = ['Hit', 'Stand'];
 
     return (
       <div className="board">
         <div className="dealer-block">
+          <SumsBlock cards={this.state.dealerCards} />
           <CardHolder cards={this.state.dealerCards} />
         </div>
         <div className="player-block">
-          <div className="sums-block">{sumsBlock}</div>
+          <SumsBlock cards={this.state.playerCards} />
           <CardHolder cards={this.state.playerCards} />
         </div>
         <div className="button-holder">
