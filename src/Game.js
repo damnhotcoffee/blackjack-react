@@ -162,7 +162,7 @@ class Game extends React.Component {
   clickDeal() {
     const gameState = 'playerTurn';
     const deck = newDeck();
-    const playerCards = [deck.pop()];
+    const playerCards = [deck.pop(), deck.pop()];
     const dealerCards = [deck.pop()];
     this.setState({
       gameState,
