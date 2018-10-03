@@ -1,6 +1,9 @@
 import React from 'react';
+import compose from 'lodash/fp/compose';
+import reject from 'lodash/fp/reject';
 import isEmpty from 'lodash/fp/isEmpty';
 import min from 'lodash/fp/min';
+import max from 'lodash/fp/max';
 import './Game.css';
 
 import {
@@ -135,8 +138,11 @@ class Game extends React.Component {
     let sums;
     do {
       this.dealCardToDealer();
-      sums = possibleSums(this.state.dealerCards);
-    } while (min(sums) < 17);
+      sums = compose(
+        reject(x => x > 21),
+        possibleSums,
+      )(this.state.dealerCards);
+    } while (sums.length > 0 && max(sums) < 17);
 
     this.decideWinner();
   }
