@@ -1,8 +1,11 @@
 import React from 'react';
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/fp/isEmpty';
+import min from 'lodash/fp/min';
 import './Game.css';
 
-import { cardToUnicode, newDeck, eligibleSums } from './cards';
+import {
+  cardToUnicode, newDeck, possibleSums, eligibleSums, winningHands,
+} from './cards';
 
 const DEALER_MESSAGES = {
   preGame: 'Welcome to the table!',
@@ -10,6 +13,7 @@ const DEALER_MESSAGES = {
   dealerTurn: 'Dealing...',
   playerWon: 'You win!',
   dealerWon: 'You lose!',
+  tieGame: 'Tie game!',
 };
 
 function DealerMessage(props) {
@@ -99,18 +103,60 @@ class Game extends React.Component {
         <PlayerButton key="Hit" name="Hit" onClick={this.clickHit} />,
         <PlayerButton key="Stand" name="Stand" onClick={this.clickStand} />,
       ],
+      dealerTurn: [],
       playerWon: preGamePlayerButtons,
       dealerWon: preGamePlayerButtons,
+      tieGame: preGamePlayerButtons,
     };
   }
 
-  dealCard() {
+  dealCardToPlayer() {
     const { deck, playerCards } = this.state;
     playerCards.push(deck.pop());
     this.setState({
       deck,
       playerCards,
     });
+  }
+
+  dealCardToDealer() {
+    const { deck, dealerCards } = this.state;
+    dealerCards.push(deck.pop());
+    this.setState({
+      deck,
+      dealerCards,
+    });
+  }
+
+  dealerTurn() {
+    this.setState({
+      gameState: 'dealerTurn',
+    });
+    let sums;
+    do {
+      this.dealCardToDealer();
+      sums = possibleSums(this.state.dealerCards);
+    } while (min(sums) < 17);
+
+    this.decideWinner();
+  }
+
+  decideWinner() {
+    const { playerCards, dealerCards } = this.state;
+    const indexes = winningHands(playerCards, dealerCards);
+    if (indexes.length > 1) {
+      this.setState({
+        gameState: 'tieGame',
+      });
+    } else if (indexes.includes(0)) {
+      this.setState({
+        gameState: 'playerWon',
+      });
+    } else {
+      this.setState({
+        gameState: 'dealerWon',
+      });
+    }
   }
 
   clickDeal() {
@@ -127,11 +173,11 @@ class Game extends React.Component {
   }
 
   clickHit() {
-    this.dealCard();
+    this.dealCardToPlayer();
   }
 
   clickStand() {
-    this.dealCard();
+    this.dealerTurn();
   }
 
   render() {

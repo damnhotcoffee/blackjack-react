@@ -5,7 +5,11 @@ import shuffle from 'lodash/fp/shuffle';
 import reduce from 'lodash/fp/reduce';
 import sortedUniq from 'lodash/fp/sortedUniq';
 import reject from 'lodash/fp/reject';
+import concat from 'lodash/fp/concat';
+import zip from 'lodash/fp/zip';
+import range from 'lodash/fp/range';
 import min from 'lodash/fp/min';
+import max from 'lodash/fp/max';
 import clamp from 'lodash/clamp';
 
 const SUIT_UNICODE_BASE = {
@@ -60,4 +64,26 @@ export function eligibleSums(cards) {
   return {
     leastbad: min(s),
   };
+}
+
+export function winningHands(...hands) {
+  const candidates = compose(
+    map(sums => compose(
+      max,
+      reject(x => x > 21),
+    )(sums)),
+    map(hand => possibleSums(hand)),
+  )(hands);
+
+  const winningValue = max(candidates);
+
+  return compose(
+    reduce((positions, entry) => {
+      const [index, value] = entry;
+      return value === winningValue
+        ? concat(positions, index)
+        : positions;
+    }, []),
+    zip(range(0, candidates.length)),
+  )(candidates);
 }

@@ -1,5 +1,5 @@
 import {
-  cardToUnicode, newDeck, possibleSums, eligibleSums,
+  cardToUnicode, newDeck, possibleSums, eligibleSums, winningHands,
 } from './cards';
 
 test('cardToUnicode works with Jack of Hearts', () => {
@@ -95,4 +95,39 @@ test('eligibleSums works: bad cases', () => {
     { rank: 1, suit: 'c' },
     { rank: 9, suit: 'c' },
   ])).toEqual({ leastbad: 22 });
+});
+
+test('winningHand works', () => {
+  expect(winningHands(
+    [
+      { rank: 2, suit: 'h' },
+    ],
+    [
+      { rank: 3, suit: 'h' },
+    ],
+  )).toEqual([1]);
+  expect(winningHands(
+    [
+      { rank: 2, suit: 'h' },
+      { rank: 7, suit: 'h' },
+      { rank: 5, suit: 'h' },
+      { rank: 6, suit: 'h' },
+    ],
+    [
+      { rank: 1, suit: 'h' },
+      { rank: 9, suit: 'h' },
+      { rank: 14, suit: 'h' },
+    ],
+  )).toEqual([0, 1]);
+  expect(winningHands(
+    [
+      { rank: 10, suit: 'h' },
+      { rank: 13, suit: 'h' },
+    ],
+    [
+      { rank: 9, suit: 'h' },
+      { rank: 2, suit: 'h' },
+      { rank: 3, suit: 'h' },
+    ],
+  )).toEqual([0]);
 });
