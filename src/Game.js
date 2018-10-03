@@ -83,20 +83,17 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
 
-    const gameState = 'preGame';
-    const deck = [];
-    const playerCards = [];
-    const dealerCards = [];
     this.state = {
-      gameState,
-      deck,
-      playerCards,
-      dealerCards,
+      gameState: 'preGame',
+      deck: [],
+      playerCards: [],
+      dealerCards: [],
     };
 
     this.clickDeal = this.clickDeal.bind(this);
     this.clickHit = this.clickHit.bind(this);
     this.clickStand = this.clickStand.bind(this);
+
     const preGamePlayerButtons = [
       <PlayerButton key="Deal" name="Deal" onClick={this.clickDeal} />,
     ];
