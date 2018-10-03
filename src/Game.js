@@ -174,6 +174,10 @@ class Game extends React.Component {
 
   clickHit() {
     this.dealCardToPlayer();
+    const sums = possibleSums(this.state.playerCards);
+    if (min(sums) > 21) {
+      this.decideWinner();
+    }
   }
 
   clickStand() {
